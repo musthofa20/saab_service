@@ -180,8 +180,9 @@ exports.GetPelangganById = async function (req, res) {
 
 exports.UpdatePelangganById = async function (req, res) {
     try {
-        con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=? WHERE nopel=?',
-            [req.body.nama, req.body.telp, req.body.alamat, req.body.active, req.body.nopel],
+        con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=?, update_date=? WHERE nopel=?',
+            [req.body.nama, req.body.telp, req.body.alamat, req.body.active
+                , moment(new Date()).format("yyyyMMDD"), req.body.nopel],
             function (error, rows, fields) {
                 if (error) {
                     var Status = {

@@ -3,7 +3,7 @@ var db_config = {
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "root",
+  password: "b1sm1llah",
   database: "larissaintercom_saab"
 };
 

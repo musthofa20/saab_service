@@ -3,5 +3,5 @@ module.exports = function (app) {
 
     app.route('/v1/Login').post(ctrl.Login);
     app.route('/v1/BebanKubik').get(ctrl.BebanKubik);
-    app.route('/v1/UpdateBebanKubik').get(ctrl.UpdateBebanKubik);
+    app.route('/v1/UpdateBebanKubik').post(ctrl.UpdateBebanKubik);
 }

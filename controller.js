@@ -177,3 +177,35 @@ exports.GetPelangganById = async function (req, res) {
             }
         });
 }
+
+exports.UpdatePelangganById = async function (req, res) {
+    try {
+        con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=? WHERE nopel=?',
+            [req.body.nama, req.body.telp, req.body.alamat, req.body.active, req.body.nopel],
+            function (error, rows, fields) {
+                if (error) {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Update Failed',
+                        'dataRow': error
+                    };
+                    res.status(300).json(Status)
+                } else {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Update Success',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                }
+            });
+    } catch (error) {
+        var Status = {
+            'code': '300',
+            'content': 'Update Failed',
+            'dataRow': error
+        };
+        res.status(300).json(Status)
+    }
+
+}

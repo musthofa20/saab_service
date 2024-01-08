@@ -98,6 +98,7 @@ exports.AddPelanggan = async function (req, res) {
                 , moment(new Date()).format("yyyyMMdd")],
             function (error, rows, fields) {
                 if (error) {
+                    console.log(error)
                     var Status = {
                         'code': '300',
                         'content': 'Insert Failed',
@@ -114,6 +115,7 @@ exports.AddPelanggan = async function (req, res) {
                 }
             });
     } catch (error) {
+        console.log(error)
         var Status = {
             'code': '300',
             'content': 'Update Failed',

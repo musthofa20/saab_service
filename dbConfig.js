@@ -1,9 +1,9 @@
 var mysql = require('mysql');
 var db_config = {
-  host: "103.191.63.174",
+  host: "larissaintercom",
   port: 3306,
   user: "root",
-  password: "b1sm1llah",
+  password: "",
   database: "larissaintercom_saab"
 };
 

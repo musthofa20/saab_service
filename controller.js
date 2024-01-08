@@ -154,8 +154,8 @@ exports.GetAllPelanggan = async function (req, res) {
 
 exports.GetPelangganById = async function (req, res) {
 
-    con.query('SELECT * FROM saab_plg WHERE id=?',
-        [req.body.id],
+    con.query('SELECT * FROM saab_plg WHERE nopel=?',
+        [req.body.nopel],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)

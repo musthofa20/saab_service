@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var db_config = {
-  host: "larissaintercom",
+  host: "localhost",
   port: 3306,
   user: "root",
   password: "",

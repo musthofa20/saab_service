@@ -29,3 +29,29 @@ exports.Login = async function (req, res) {
             }
         });
 }
+
+exports.BebanKubik = async function (req, res) {
+    console.log(req.body)
+    con.query('SELECT id,bebanAdmin,biayaMeter FROM saab_bebankubik',
+        [],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if(rows.length > 0){
+                    var Status = {
+                        'code': '200',
+                        'content' : 'Records Exist',
+                        'dataRow' : rows
+                      };
+                      res.status(200).json(Status)
+                }else{
+                    var Status = {
+                        'code': '300',
+                        'content' : 'Records Empty'
+                      };
+                      res.status(300).json(Status)
+                }
+            }
+        });
+}

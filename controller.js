@@ -94,8 +94,8 @@ exports.AddPelanggan = async function (req, res) {
         con.query('INSERT INTO saab_plg(nopel, nama, telp, meterawal, alamat, create_date, update_date) ' +
             'VALUES (?,?,?,?,?,?,?)',
             [req.body.nopel, req.body.nama, req.body.telp,
-            req.body.meterawal, req.body.alamat, moment(new Date()).format("yyyyMMdd")
-                , moment(new Date()).format("yyyyMMdd")],
+            req.body.meterawal, req.body.alamat, moment(new Date()).format("yyyyMMDD")
+                , moment(new Date()).format("yyyyMMDD")],
             function (error, rows, fields) {
                 if (error) {
                     console.log(error)

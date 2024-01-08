@@ -59,7 +59,7 @@ exports.BebanKubik = async function (req, res) {
 exports.UpdateBebanKubik = async function (req, res) {
     console.log(req.body)
     con.query('UPDATE saab_bebankubik SET bebanAdmin = ?,biayaMeter=? WHERE id=?',
-        [req.body.id, req.body.bebanAdmin, req.body.bebanAdmin],
+        [req.body.bebanAdmin, req.body.biayaMeter, req.body.id],
         function (error, rows, fields) {
             if (error) {
                 var Status = {

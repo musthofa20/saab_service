@@ -55,3 +55,26 @@ exports.BebanKubik = async function (req, res) {
             }
         });
 }
+
+exports.UpdateBebanKubik = async function (req, res) {
+    console.log(req.body)
+    con.query('UPDATE saab_bebankubik SET bebanAdmin = ?,biayaMeter=? WHERE id=?',
+        [req.body.id, req.body.bebanAdmin, req.body.bebanAdmin],
+        function (error, rows, fields) {
+            if (error) {
+                var Status = {
+                    'code': '300',
+                    'content' : 'Update Failed',
+                    'dataRow' : error
+                  };
+                  res.status(200).json(Status)
+            } else {
+                var Status = {
+                    'code': '200',
+                    'content' : 'Update Success',
+                    'dataRow' : rows
+                  };
+                  res.status(200).json(Status)
+            }
+        });
+}

@@ -89,6 +89,8 @@ exports.UpdateBebanKubik = async function (req, res) {
 
 }
 
+
+// pelanggan
 exports.AddPelanggan = async function (req, res) {
     try {
         con.query('INSERT INTO saab_plg(nopel, nama, telp, meterawal, alamat, create_date, update_date) ' +
@@ -209,4 +211,31 @@ exports.UpdatePelangganById = async function (req, res) {
         res.status(300).json(Status)
     }
 
+}
+
+
+// transaksi
+exports.GetTransaksiOutstanding = async function (req, res) {
+    con.query('SELECT * FROM saab_trx WHERE lunas=?',
+        ['N'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
 }

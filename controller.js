@@ -213,6 +213,62 @@ exports.UpdatePelangganById = async function (req, res) {
 
 }
 
+exports.GetPelangganBacaMeter = async function (req, res) {
+
+    con.query('SELECT X0.nopel, X0.nama FROM saab_plg X0 ' + 
+    'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
+    'WHERE X1.nopel NOT IN (SELECT nopel FROM saab_trx where periode = ? and status = ? and lunas=?);',
+        [req.body.periode, 'O','N'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
+exports.GetPelangganCatatMeter = async function (req, res) {
+
+    con.query('SELECT X0.nopel, X0.nama FROM saab_plg X0 ' + 
+    'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
+    'WHERE X1.nopel = ?;',
+        [req.body.nopel],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
 
 
 // transaksi

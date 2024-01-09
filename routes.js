@@ -10,6 +10,8 @@ module.exports = function (app) {
     app.route('/v1/GetAllPelanggan').get(ctrl.GetAllPelanggan);
     app.route('/v1/GetPelangganById').post(ctrl.GetPelangganById);
     app.route('/v1/UpdatePelangganById').post(ctrl.UpdatePelangganById);
+    app.route('/v1/GetPelangganBacaMeter').post(ctrl.GetPelangganBacaMeter);
+    app.route('/v1/GetPelangganCatatMeter').post(ctrl.GetPelangganCatatMeter);
 
     // transaksi
     app.route('/v1/GetTransaksiOutstanding').post(ctrl.GetTransaksiOutstanding);

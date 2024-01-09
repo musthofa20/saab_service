@@ -137,7 +137,7 @@ exports.GetAllPelanggan = async function (req, res) {
                 if (rows.length > 0) {
                     var Status = {
                         'code': '200',
-                        'content': 'Records Exist adalah',
+                        'content': 'Records Exist adalah sesuatu',
                         'dataRow': rows
                     };
                     res.status(200).json(Status)

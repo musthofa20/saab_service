@@ -243,9 +243,10 @@ exports.GetPelangganBacaMeter = async function (req, res) {
 
 exports.GetPelangganCatatMeter = async function (req, res) {
 
-    con.query('SELECT X0.nopel, X0.nama, X1.meterakhir FROM saab_plg X0 ' + 
+    con.query('SELECT X0.nopel, X0.nama, CASE WHEN (X1.meterakhir IS NULL OR X1.meterakhir = 0) THEN X0.meterawal ' +
+	'ELSE X1.meterakhir END AS meterawa FROM saab_plg X0 ' +
     'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
-    'WHERE X1.nopel = ?;',
+    'WHERE X0.nopel = ?;',
         [req.body.nopel],
         function (error, rows, fields) {
             if (error) {

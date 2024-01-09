@@ -10,5 +10,12 @@ module.exports = function (app) {
     app.route('/v1/GetAllPelanggan').get(ctrl.GetAllPelanggan);
     app.route('/v1/GetPelangganById').post(ctrl.GetPelangganById);
     app.route('/v1/UpdatePelangganById').post(ctrl.UpdatePelangganById);
+
+    // transaksi
     app.route('/v1/GetTransaksiOutstanding').post(ctrl.GetTransaksiOutstanding);
+    app.route('/v1/AddTransaksi').post(ctrl.AddTransaksi);
+    app.route('/v1/GetTransaksiById').post(ctrl.GetTransaksiById);
+    app.route('/v1/GetTransaksiByNopel').post(ctrl.GetTransaksiByNopel);
+    app.route('/v1/GetTransaksiByPeriode').post(ctrl.GetTransaksiByPeriode);
+    
 }

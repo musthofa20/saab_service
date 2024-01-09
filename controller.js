@@ -89,6 +89,8 @@ exports.UpdateBebanKubik = async function (req, res) {
 
 }
 
+
+// pelanggan
 exports.AddPelanggan = async function (req, res) {
     try {
         con.query('INSERT INTO saab_plg(nopel, nama, telp, meterawal, alamat, create_date, update_date) ' +
@@ -212,10 +214,129 @@ exports.UpdatePelangganById = async function (req, res) {
 }
 
 
+
+// transaksi
 exports.GetTransaksiOutstanding = async function (req, res) {
 
     con.query('SELECT * FROM saab_trx WHERE lunas=? and status=?',
-        ['N','O'],
+        ['N', 'O'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
+exports.AddTransaksi = async function (req, res) {
+    try {
+        con.query('INSERT INTO saab_trx(nopel, meterawal, beban, biayakubik, meterakhir ' +
+            ', selisihmeter, totalpemakaian, pembayaran, periode, create_date, update_date) ' +
+            'VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+            [req.body.nopel, req.body.meterawal, req.body.beban,
+            req.body.biayakubik, req.body.meterakhir, req.body.selisihmeter,
+            req.body.totalpemakaian, req.body.pembayaran, req.body.periode
+                , moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
+            function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
+                    var Status = {
+                        'code': '300',
+                        'content': 'Insert Failed',
+                        'dataRow': error
+                    };
+                    res.status(300).json(Status)
+                } else {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Insert Success',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                }
+            });
+    } catch (error) {
+        console.log(error)
+        var Status = {
+            'code': '300',
+            'content': 'Update Failed',
+            'dataRow': error
+        };
+        res.status(300).json(Status)
+    }
+
+}
+
+exports.GetTransaksiById = async function (req, res) {
+
+    con.query('SELECT * FROM saab_trx WHERE id=?',
+        [req.body.id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
+exports.GetTransaksiByNopel = async function (req, res) {
+
+    con.query('SELECT * FROM saab_trx WHERE nopel=?',
+        [req.body.nopel],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
+exports.GetTransaksiByPeriode = async function (req, res) {
+
+    con.query('SELECT * FROM saab_trx WHERE periode BETWEEN ? AND ?',
+        [req.body.dateFrom, req.body.dateTo],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)

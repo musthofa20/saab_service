@@ -26,5 +26,5 @@ jobs:
           cd ~/service_saab_v1/saab_service
           git pull origin main
           npm install
-          pm2 restart serversaab
+          pm2 restart server_saab
           

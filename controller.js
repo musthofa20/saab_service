@@ -210,3 +210,30 @@ exports.UpdatePelangganById = async function (req, res) {
     }
 
 }
+
+
+exports.GetTransaksiOutstanding = async function (req, res) {
+
+    con.query('SELECT * FROM saab_trx WHERE lunas=? and status=?',
+        ['N','O'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}

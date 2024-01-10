@@ -215,10 +215,10 @@ exports.UpdatePelangganById = async function (req, res) {
 
 exports.GetPelangganBacaMeter = async function (req, res) {
 
-    con.query('SELECT X0.nopel, X0.nama FROM saab_plg X0 ' + 
-    'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
-    'WHERE X0.nopel NOT IN (SELECT nopel FROM saab_trx where periode = ? and status = ? and lunas=?);',
-        [req.body.periode, 'O','N'],
+    con.query('SELECT X0.nopel, X0.nama FROM saab_plg X0 ' +
+        'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
+        'WHERE X0.nopel NOT IN (SELECT nopel FROM saab_trx where periode = ? and status = ? and lunas=?);',
+        [req.body.periode, 'O', 'N'],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
@@ -244,9 +244,9 @@ exports.GetPelangganBacaMeter = async function (req, res) {
 exports.GetPelangganCatatMeter = async function (req, res) {
 
     con.query('SELECT X0.nopel, X0.nama, CASE WHEN (X1.meterakhir IS NULL OR X1.meterakhir = 0) THEN X0.meterawal ' +
-	'ELSE X1.meterakhir END AS meterawa FROM saab_plg X0 ' +
-    'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
-    'WHERE X0.nopel = ?;',
+        'ELSE X1.meterakhir END AS meterawa FROM saab_plg X0 ' +
+        'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
+        'WHERE X0.nopel = ?;',
         [req.body.nopel],
         function (error, rows, fields) {
             if (error) {
@@ -275,29 +275,34 @@ exports.GetPelangganCatatMeter = async function (req, res) {
 // transaksi
 exports.GetTransaksiOutstanding = async function (req, res) {
 
-    con.query('SELECT X0.*, X1.namapel FROM saab_trx X0 '+
+    try {
+        con.query('SELECT X0.*, X1.nama FROM saab_trx X0 ' +
             'INNER JOIN saab_plg X1 ON X0.nopel = X1.nopel WHERE X0.lunas = ? and X0.status = ?',
-        ['N', 'O'],
-        function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                if (rows.length > 0) {
-                    var Status = {
-                        'code': '200',
-                        'content': 'Records Exist',
-                        'dataRow': rows
-                    };
-                    res.status(200).json(Status)
+            ['N', 'O'],
+            function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
                 } else {
-                    var Status = {
-                        'code': '300',
-                        'content': 'Records Empty'
-                    };
-                    res.status(300).json(Status)
+                    if (rows.length > 0) {
+                        var Status = {
+                            'code': '200',
+                            'content': 'Records Exist',
+                            'dataRow': rows
+                        };
+                        res.status(200).json(Status)
+                    } else {
+                        var Status = {
+                            'code': '300',
+                            'content': 'Records Empty'
+                        };
+                        res.status(300).json(Status)
+                    }
                 }
-            }
-        });
+            });
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 exports.AddTransaksi = async function (req, res) {

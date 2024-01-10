@@ -19,5 +19,5 @@ module.exports = function (app) {
     app.route('/v1/GetTransaksiById').post(ctrl.GetTransaksiById);
     app.route('/v1/GetTransaksiByNopel').post(ctrl.GetTransaksiByNopel);
     app.route('/v1/GetTransaksiByPeriode').post(ctrl.GetTransaksiByPeriode);
-    app.route('/v1/getTransaksiChart').post(ctrl.getTransaksiChart);
+    app.route('/v1/getTransaksiChart').get(ctrl.getTransaksiChart);
 }

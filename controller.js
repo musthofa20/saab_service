@@ -217,7 +217,7 @@ exports.GetPelangganBacaMeter = async function (req, res) {
 
     con.query('SELECT X0.nopel, X0.nama FROM saab_plg X0 ' + 
     'LEFT JOIN (SELECT T0.nopel, COALESCE(T0.meterakhir,0) meterakhir FROM saab_trx T0) X1 ON X0.nopel = X1.nopel ' +
-    'WHERE X1.nopel NOT IN (SELECT nopel FROM saab_trx where periode = ? and status = ? and lunas=?);',
+    'WHERE X0.nopel NOT IN (SELECT nopel FROM saab_trx where periode = ? and status = ? and lunas=?);',
         [req.body.periode, 'O','N'],
         function (error, rows, fields) {
             if (error) {

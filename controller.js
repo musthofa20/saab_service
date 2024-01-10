@@ -424,7 +424,7 @@ exports.GetTransaksiByPeriode = async function (req, res) {
 
 exports.getTransaksiChart = async function (req, res) {
 
-    con.query('SELECT COALESCE(selisihmeter,0) selisihmeter FROM saab_trx WHERE status <> ?',
+    con.query("SELECT COALESCE(SUM(selisihmeter),0) selisihmeter, periode as label, '#177AD5' as frontColor FROM saab_trx WHERE status <> ?",
         ['L'],
         function (error, rows, fields) {
             if (error) {

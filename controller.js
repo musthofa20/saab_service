@@ -201,53 +201,50 @@ exports.GetPelangganById = async function (req, res) {
 exports.UpdatePelangganById = async function (req, res) {
     try {
 
-        var count = 0
-        // jika ada transaksi yang belum lunas maka tidak boleh invative
-        if (req.body.active === 'N') {
-            con.query('select COUNT(*) outstanding from saab_trx WHERE lunas = ? AND nopel = ?;',
-                ['N', req.body.nopel],
-                function (error, result, fields) {
-                    if (error) {
+        // cek jika masih ada transaksi yg belum lunas dan active menjadi M
+        con.query('select COUNT(*) outstanding from saab_trx WHERE lunas = ? AND nopel = ?;',
+            ['N', req.body.nopel],
+            function (error, result, fields) {
+                if (error) {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Update Failed',
+                        'dataRow': error
+                    };
+                    res.status(300).json(Status)
+                } else {
+                    console.log(result);
+                    if (parseFloat(result[0].outstanding) > 0) {
                         var Status = {
                             'code': '300',
-                            'content': 'Update Failed',
-                            'dataRow': error
+                            'content': 'Masih ada Transaksi belum lunas',
+                            'dataRow': result
                         };
                         res.status(300).json(Status)
                     } else {
-                        console.log(result);
-                        if (parseFloat(result[0].outstanding) > 0) {
-                            var Status = {
-                                'code': '300',
-                                'content': 'Masih ada Transaksi belum lunas',
-                                'dataRow': result
-                            };
-                            res.status(300).json(Status)
-                        } else {
-                            con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=?, update_date=? WHERE nopel=?',
-                                [req.body.nama, req.body.telp, req.body.alamat, req.body.active
-                                    , moment(new Date()).format("yyyyMMDD"), req.body.nopel],
-                                function (error, rows, fields) {
-                                    if (error) {
-                                        var Status = {
-                                            'code': '300',
-                                            'content': 'Update Failed',
-                                            'dataRow': error
-                                        };
-                                        res.status(300).json(Status)
-                                    } else {
-                                        var Status = {
-                                            'code': '200',
-                                            'content': 'Update Success',
-                                            'dataRow': rows
-                                        };
-                                        res.status(200).json(Status)
-                                    }
-                                });
-                        }
+                        con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=?, update_date=? WHERE nopel=?',
+                            [req.body.nama, req.body.telp, req.body.alamat, req.body.active
+                                , moment(new Date()).format("yyyyMMDD"), req.body.nopel],
+                            function (error, rows, fields) {
+                                if (error) {
+                                    var Status = {
+                                        'code': '300',
+                                        'content': 'Update Failed',
+                                        'dataRow': error
+                                    };
+                                    res.status(300).json(Status)
+                                } else {
+                                    var Status = {
+                                        'code': '200',
+                                        'content': 'Update Success',
+                                        'dataRow': rows
+                                    };
+                                    res.status(200).json(Status)
+                                }
+                            });
                     }
-                });
-        }
+                }
+            });
 
     } catch (error) {
         var Status = {

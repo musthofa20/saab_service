@@ -21,4 +21,6 @@ module.exports = function (app) {
     app.route('/v1/GetTransaksiByPeriode').post(ctrl.GetTransaksiByPeriode);
     app.route('/v1/getTransaksiChart').get(ctrl.getTransaksiChart);
     app.route('/v1/getTransaksiPrint').post(ctrl.getTransaksiPrint);
+    app.route('/v1/UpdateTransaksi').post(ctrl.UpdateTransaksi);
+    app.route('/v1/PayTransaksi').post(ctrl.PayTransaksi);
 }

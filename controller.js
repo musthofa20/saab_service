@@ -37,6 +37,12 @@ exports.BebanKubik = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -135,6 +141,12 @@ exports.GetAllPelanggan = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -161,6 +173,12 @@ exports.GetPelangganById = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -222,6 +240,12 @@ exports.GetPelangganBacaMeter = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -251,6 +275,12 @@ exports.GetPelangganCatatMeter = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': error
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -282,6 +312,12 @@ exports.GetTransaksiOutstanding = async function (req, res) {
             function (error, rows, fields) {
                 if (error) {
                     console.log(error)
+                    var Status = {
+                        'code': '300',
+                        'content': 'Error get Record',
+                        'dataRow': rows
+                    };
+                    res.status(300).json(Status)
                 } else {
                     if (rows.length > 0) {
                         var Status = {
@@ -351,6 +387,12 @@ exports.GetTransaksiById = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -377,6 +419,12 @@ exports.GetTransaksiByNopel = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -403,6 +451,12 @@ exports.GetTransaksiByPeriode = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -429,6 +483,12 @@ exports.getTransaksiChart = async function (req, res) {
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -450,14 +510,20 @@ exports.getTransaksiChart = async function (req, res) {
 
 exports.getTransaksiPrint = async function (req, res) {
 
-    con.query("SELECT X0.nopel,X1.nama as name, X1.alamat AS address, X1.telp as phone, 'Tirta Wening' as company, "+
-    "X0.pembayaran, X0.selisihmeter, X0.biayakubik, X0.beban, (X0.selisihmeter * X0.biayakubik) as Amount, X0.id, X0.periode  FROM saab_trx X0  " +
-    "INNER JOIN saab_plg X1 ON X0.nopel = X1.nopel " +
-    "WHERE X0.nopel = ? and X0.periode = ? and X0.id=?;",
+    con.query("SELECT X0.nopel,X1.nama as name, X1.alamat AS address, X1.telp as phone, 'Tirta Wening' as company, " +
+        "X0.pembayaran, X0.selisihmeter, X0.biayakubik, X0.beban, (X0.selisihmeter * X0.biayakubik) as Amount, X0.id, X0.periode  FROM saab_trx X0  " +
+        "INNER JOIN saab_plg X1 ON X0.nopel = X1.nopel " +
+        "WHERE X0.nopel = ? and X0.periode = ? and X0.id=?;",
         [req.body.nopel, req.body.periode, req.body.id],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
             } else {
                 if (rows.length > 0) {
                     var Status = {
@@ -473,6 +539,57 @@ exports.getTransaksiPrint = async function (req, res) {
                     };
                     res.status(300).json(Status)
                 }
+            }
+        });
+}
+
+exports.UpdateTransaksi = async function (req, res) {
+
+    con.query('UPDATE saab_trx SET beban = ?,biayakubik=?,meterakhir=?,selisihmeter=?,totalpemakaian=?,pembayaran=?, meterawal = ?, update_date=? WHERE id=?',
+        [req.body.beban, req.body.biayakubik, req.body.meterakhir, req.body.selisihmeter
+            , req.body.totalpemakaian, req.body.pembayaran, req.body.meterawal
+            , moment(new Date()).format("yyyyMMDD"), req.body.id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Update Failed',
+                    'dataRow': error
+                };
+                res.status(300).json(Status)
+            } else {
+                var Status = {
+                    'code': '200',
+                    'content': 'Update Success',
+                    'dataRow': rows
+                };
+                res.status(200).json(Status)
+            }
+        });
+}
+
+exports.PayTransaksi = async function (req, res) {
+
+    con.query('UPDATE saab_trx SET lunas = ?,status=?, update_date=? WHERE id=?',
+        ['Y', 'C'
+            , moment(new Date()).format("yyyyMMDD"), req.body.id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Pembayaran Failed',
+                    'dataRow': error
+                };
+                res.status(300).json(Status)
+            } else {
+                var Status = {
+                    'code': '200',
+                    'content': 'Pembayaran Success',
+                    'dataRow': rows
+                };
+                res.status(200).json(Status)
             }
         });
 }

@@ -14,7 +14,7 @@ module.exports = function (app) {
     app.route('/v1/GetPelangganCatatMeter').post(ctrl.GetPelangganCatatMeter);
 
     // transaksi
-    app.route('/v1/GetTransaksiOutstanding').post(ctrl.GetTransaksiOutstanding);
+    app.route('/v1/GetTransaksiOutstanding').get(ctrl.GetTransaksiOutstanding);
     app.route('/v1/AddTransaksi').post(ctrl.AddTransaksi);
     app.route('/v1/GetTransaksiById').post(ctrl.GetTransaksiById);
     app.route('/v1/GetTransaksiByNopel').post(ctrl.GetTransaksiByNopel);

@@ -20,4 +20,5 @@ module.exports = function (app) {
     app.route('/v1/GetTransaksiByNopel').post(ctrl.GetTransaksiByNopel);
     app.route('/v1/GetTransaksiByPeriode').post(ctrl.GetTransaksiByPeriode);
     app.route('/v1/getTransaksiChart').get(ctrl.getTransaksiChart);
+    app.route('/v1/getTransaksiPrint').post(ctrl.getTransaksiPrint);
 }

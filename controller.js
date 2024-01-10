@@ -447,3 +447,32 @@ exports.getTransaksiChart = async function (req, res) {
             }
         });
 }
+
+exports.getTransaksiPrint = async function (req, res) {
+
+    con.query("SELECT X0.nopel,X1.nama as name, X1.alamat AS address, X1.telp as phone, 'Tirta Wening' as company, "+
+    "X0.pembayaran, X0.selisihmeter, X0.biayakubik, X0.beban, (X0.selisihmeter * X0.biayakubik) as Amount, X0.id, X0.periode  FROM saab_trx X0  " +
+    "INNER JOIN saab_plg X1 ON X0.nopel = X1.nopel " +
+    "WHERE X0.nopel = ? and X0.periode = ? and X0.id=?;",
+        [req.body.nopel, req.body.periode, req.body.id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}

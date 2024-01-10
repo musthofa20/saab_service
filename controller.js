@@ -215,6 +215,7 @@ exports.UpdatePelangganById = async function (req, res) {
                         };
                         res.status(300).json(Status)
                     } else {
+                        console.log(result)
                         for (var data of result.rows) {
                             if (parseFloat(data.outstanding) > 0) {
                                 var Status = {

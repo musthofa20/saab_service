@@ -200,6 +200,36 @@ exports.GetPelangganById = async function (req, res) {
 
 exports.UpdatePelangganById = async function (req, res) {
     try {
+
+        var count = 0
+        // jika ada transaksi yang belum lunas maka tidak boleh invative
+        if (req.body.active === 'N') {
+            con.query('select COUNT(*) outstanding from saab_trx WHERE lunas = ? AND nopel = ?;',
+                ['N', req.body.nopel],
+                function (error, result, fields) {
+                    if (error) {
+                        var Status = {
+                            'code': '300',
+                            'content': 'Update Failed',
+                            'dataRow': error
+                        };
+                        res.status(300).json(Status)
+                    } else {
+                        for (var data of result.rows) {
+                            count = data.outstanding
+                        }
+                        if (count > 0) {
+                            var Status = {
+                                'code': '300',
+                                'content': 'Masih ada Transaksi belum lunas',
+                                'dataRow': result
+                            };
+                            res.status(300).json(Status)
+                        }
+                    }
+                });
+        }
+
         con.query('UPDATE saab_plg SET nama=?, telp=?,alamat=?, active=?, update_date=? WHERE nopel=?',
             [req.body.nama, req.body.telp, req.body.alamat, req.body.active
                 , moment(new Date()).format("yyyyMMDD"), req.body.nopel],

@@ -421,3 +421,29 @@ exports.GetTransaksiByPeriode = async function (req, res) {
             }
         });
 }
+
+exports.getTransaksiChart = async function (req, res) {
+
+    con.query('SELECT COALESCE(selisihmeter,0) selisihmeter FROM saab_trx WHERE status <> ?',
+        ['L'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}

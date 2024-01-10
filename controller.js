@@ -275,7 +275,8 @@ exports.GetPelangganCatatMeter = async function (req, res) {
 // transaksi
 exports.GetTransaksiOutstanding = async function (req, res) {
 
-    con.query('SELECT * FROM saab_trx WHERE lunas=? and status=?',
+    con.query('SELECT X0.*, X1.namapel FROM saab_trx X0 '+
+            'INNER JOIN saab_plg X1 ON X0.nopel = X1.nopel WHERE X0.lunas = ? and X0.status = ?',
         ['N', 'O'],
         function (error, rows, fields) {
             if (error) {

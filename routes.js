@@ -4,6 +4,7 @@ module.exports = function (app) {
     app.route('/v1/Login').post(ctrl.Login);
     app.route('/v1/BebanKubik').get(ctrl.BebanKubik);
     app.route('/v1/UpdateBebanKubik').post(ctrl.UpdateBebanKubik);
+    app.route('/v1/UpdatePassword').post(ctrl.UpdatePassword);
 
     // pelanggan
     app.route('/v1/AddPelanggan').post(ctrl.AddPelanggan);

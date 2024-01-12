@@ -95,6 +95,38 @@ exports.UpdateBebanKubik = async function (req, res) {
 
 }
 
+exports.UpdatePassword = async function (req, res) {
+    try {
+        con.query('UPDATE saab_bebankubik SET password = ? WHERE id=?',
+            [req.body.password, req.body.id],
+            function (error, rows, fields) {
+                if (error) {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Update Failed',
+                        'dataRow': error
+                    };
+                    res.status(300).json(Status)
+                } else {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Update Success',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                }
+            });
+    } catch (error) {
+        var Status = {
+            'code': '300',
+            'content': 'Update Failed',
+            'dataRow': error
+        };
+        res.status(300).json(Status)
+    }
+
+}
+
 
 // pelanggan
 exports.AddPelanggan = async function (req, res) {
@@ -624,10 +656,10 @@ exports.PayTransaksi = async function (req, res) {
 // pengeluaran
 exports.AddPengeluaran = async function (req, res) {
     try {
-        con.query('INSERT INTO saab_expses(nama, keperluan, tanggal, jumlah, status, create_date, update_date) ' +
-            'VALUES (?,?,?,?,?,?,?)',
+        con.query('INSERT INTO saab_expses(nama, keperluan, tanggal, jumlah, harga, total, status, create_date, update_date) ' +
+            'VALUES (?,?,?,?,?,?,?,?,?)',
             [req.body.nama, req.body.keperluan, moment(new Date()).format("yyyyMMDD"),
-            req.body.jumlah, 'O', moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
+            req.body.jumlah, req.body.harga, req.body.total, 'O', moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
             function (error, rows, fields) {
                 if (error) {
                     console.log(error)

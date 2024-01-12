@@ -5,7 +5,6 @@ module.exports = function (app) {
     app.route('/v1/Login').post(ctrl.Login);
     app.route('/v1/BebanKubik').get(ctrl.BebanKubik);
     app.route('/v1/UpdateBebanKubik').post(ctrl.UpdateBebanKubik);
-    app.route('/v1/UpdatePassword').post(ctrl.UpdatePassword);
 
     // pelanggan
     app.route('/v1/AddPelanggan').post(ctrl.AddPelanggan);
@@ -27,9 +26,9 @@ module.exports = function (app) {
     app.route('/v1/PayTransaksi').post(ctrl.PayTransaksi);
 
     // LAPORAN
-    // app.route('/v1/AddPengeluaran').post(ctrl.AddPengeluaran);
-    // app.route('/v1/EditPengeluaran').post(ctrl.EditPengeluaran);
-    // app.route('/v1/CancelPengeluaran').post(ctrl.CancelPengeluaran);
-    // app.route('/v1/GetPengeluaranByPeriode').post(ctrl.GetPengeluaranByPeriode);
+    app.route('/v1/AddPengeluaran').post(ctrl.AddPengeluaran);
+    app.route('/v1/EditPengeluaran').post(ctrl.EditPengeluaran);
+    app.route('/v1/CancelPengeluaran').post(ctrl.CancelPengeluaran);
+    app.route('/v1/GetPengeluaranByPeriode').post(ctrl.GetPengeluaranByPeriode);
     
 }

@@ -27,6 +27,8 @@ module.exports = function (app) {
 
     // LAPORAN
     app.route('/v1/AddPengeluaran').post(ctrl.AddPengeluaran);
+    app.route('/v1/GetAllPengeluaran').get(ctrl.GetAllPengeluaran);
+    app.route('/v1/GetPengeluaranById').get(ctrl.GetPengeluaranById);
     app.route('/v1/EditPengeluaran').post(ctrl.EditPengeluaran);
     app.route('/v1/CancelPengeluaran').post(ctrl.CancelPengeluaran);
     app.route('/v1/GetPengeluaranByPeriode').post(ctrl.GetPengeluaranByPeriode);

@@ -690,6 +690,70 @@ exports.AddPengeluaran = async function (req, res) {
 
 }
 
+exports.GetAllPengeluaran = async function (req, res) {
+
+    con.query('SELECT * FROM saab_expses WHERE status <> ?',
+        ['L'],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
+exports.GetPengeluaranById = async function (req, res) {
+
+    con.query('SELECT * FROM saab_expses WHERE id = ?',
+        [req.body.id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
+            }
+        });
+}
+
 exports.EditPengeluaran = async function (req, res) {
     try {
         con.query('update saab_expses set keperluan=?, jumlah=?, status=?, update_date=? where id=?',

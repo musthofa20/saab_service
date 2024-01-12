@@ -622,139 +622,139 @@ exports.PayTransaksi = async function (req, res) {
 
 
 // pengeluaran
-exports.AddPengeluaran = async function (req, res) {
-    try {
-        con.query('INSERT INTO saab_expses(nama, keperluan, tanggal, jumlah, status, create_date, update_date) ' +
-            'VALUES (?,?,?,?,?,?,?)',
-            [req.body.nama, req.body.keperluan, moment(new Date()).format("yyyyMMDD"),
-            req.body.jumlah, 'O', moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
-            function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                    var Status = {
-                        'code': '300',
-                        'content': 'Insert Failed',
-                        'dataRow': error
-                    };
-                    res.status(300).json(Status)
-                } else {
-                    var Status = {
-                        'code': '200',
-                        'content': 'Insert Success',
-                        'dataRow': rows
-                    };
-                    res.status(200).json(Status)
-                }
-            });
-    } catch (error) {
-        console.log(error)
-        var Status = {
-            'code': '300',
-            'content': 'Insert Failed',
-            'dataRow': error
-        };
-        res.status(300).json(Status)
-    }
+// exports.AddPengeluaran = async function (req, res) {
+//     try {
+//         con.query('INSERT INTO saab_expses(nama, keperluan, tanggal, jumlah, status, create_date, update_date) ' +
+//             'VALUES (?,?,?,?,?,?,?)',
+//             [req.body.nama, req.body.keperluan, moment(new Date()).format("yyyyMMDD"),
+//             req.body.jumlah, 'O', moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
+//             function (error, rows, fields) {
+//                 if (error) {
+//                     console.log(error)
+//                     var Status = {
+//                         'code': '300',
+//                         'content': 'Insert Failed',
+//                         'dataRow': error
+//                     };
+//                     res.status(300).json(Status)
+//                 } else {
+//                     var Status = {
+//                         'code': '200',
+//                         'content': 'Insert Success',
+//                         'dataRow': rows
+//                     };
+//                     res.status(200).json(Status)
+//                 }
+//             });
+//     } catch (error) {
+//         console.log(error)
+//         var Status = {
+//             'code': '300',
+//             'content': 'Insert Failed',
+//             'dataRow': error
+//         };
+//         res.status(300).json(Status)
+//     }
 
-}
+// }
 
-exports.EditPengeluaran = async function (req, res) {
-    try {
-        con.query('update saab_expses set keperluan=?, jumlah=?, status=?, update_date=? where id=?',
-            [req.body.keperluan, req.body.jumlah, req.body.status, req.body.status
-                , moment(new Date()).format("yyyyMMDD"), req.body.id],
-            function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                    var Status = {
-                        'code': '300',
-                        'content': 'Update Failed',
-                        'dataRow': error
-                    };
-                    res.status(300).json(Status)
-                } else {
-                    var Status = {
-                        'code': '200',
-                        'content': 'Update Success',
-                        'dataRow': rows
-                    };
-                    res.status(200).json(Status)
-                }
-            });
-    } catch (error) {
-        console.log(error)
-        var Status = {
-            'code': '300',
-            'content': 'Update Failed',
-            'dataRow': error
-        };
-        res.status(300).json(Status)
-    }
+// exports.EditPengeluaran = async function (req, res) {
+//     try {
+//         con.query('update saab_expses set keperluan=?, jumlah=?, status=?, update_date=? where id=?',
+//             [req.body.keperluan, req.body.jumlah, req.body.status, req.body.status
+//                 , moment(new Date()).format("yyyyMMDD"), req.body.id],
+//             function (error, rows, fields) {
+//                 if (error) {
+//                     console.log(error)
+//                     var Status = {
+//                         'code': '300',
+//                         'content': 'Update Failed',
+//                         'dataRow': error
+//                     };
+//                     res.status(300).json(Status)
+//                 } else {
+//                     var Status = {
+//                         'code': '200',
+//                         'content': 'Update Success',
+//                         'dataRow': rows
+//                     };
+//                     res.status(200).json(Status)
+//                 }
+//             });
+//     } catch (error) {
+//         console.log(error)
+//         var Status = {
+//             'code': '300',
+//             'content': 'Update Failed',
+//             'dataRow': error
+//         };
+//         res.status(300).json(Status)
+//     }
 
-}
+// }
 
-exports.CancelPengeluaran = async function (req, res) {
-    try {
-        con.query('update saab_expses set status=?, update_date=? where id=?',
-            [req.body.status, moment(new Date()).format("yyyyMMDD"), req.body.id],
-            function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                    var Status = {
-                        'code': '300',
-                        'content': 'Update Failed',
-                        'dataRow': error
-                    };
-                    res.status(300).json(Status)
-                } else {
-                    var Status = {
-                        'code': '200',
-                        'content': 'Update Success',
-                        'dataRow': rows
-                    };
-                    res.status(200).json(Status)
-                }
-            });
-    } catch (error) {
-        console.log(error)
-        var Status = {
-            'code': '300',
-            'content': 'Update Failed',
-            'dataRow': error
-        };
-        res.status(300).json(Status)
-    }
+// exports.CancelPengeluaran = async function (req, res) {
+//     try {
+//         con.query('update saab_expses set status=?, update_date=? where id=?',
+//             [req.body.status, moment(new Date()).format("yyyyMMDD"), req.body.id],
+//             function (error, rows, fields) {
+//                 if (error) {
+//                     console.log(error)
+//                     var Status = {
+//                         'code': '300',
+//                         'content': 'Update Failed',
+//                         'dataRow': error
+//                     };
+//                     res.status(300).json(Status)
+//                 } else {
+//                     var Status = {
+//                         'code': '200',
+//                         'content': 'Update Success',
+//                         'dataRow': rows
+//                     };
+//                     res.status(200).json(Status)
+//                 }
+//             });
+//     } catch (error) {
+//         console.log(error)
+//         var Status = {
+//             'code': '300',
+//             'content': 'Update Failed',
+//             'dataRow': error
+//         };
+//         res.status(300).json(Status)
+//     }
 
-}
+// }
 
-exports.GetPengeluaranByPeriode = async function (req, res) {
+// exports.GetPengeluaranByPeriode = async function (req, res) {
 
-    con.query('SELECT * FROM saab_expses WHERE tanggal BETWEEN ? AND ?',
-        [req.body.dateFrom, req.body.dateTo],
-        function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-                var Status = {
-                    'code': '300',
-                    'content': 'Error get Record',
-                    'dataRow': rows
-                };
-                res.status(300).json(Status)
-            } else {
-                if (rows.length > 0) {
-                    var Status = {
-                        'code': '200',
-                        'content': 'Records Exist',
-                        'dataRow': rows
-                    };
-                    res.status(200).json(Status)
-                } else {
-                    var Status = {
-                        'code': '300',
-                        'content': 'Records Empty'
-                    };
-                    res.status(300).json(Status)
-                }
-            }
-        });
-}
+//     con.query('SELECT * FROM saab_expses WHERE tanggal BETWEEN ? AND ?',
+//         [req.body.dateFrom, req.body.dateTo],
+//         function (error, rows, fields) {
+//             if (error) {
+//                 console.log(error)
+//                 var Status = {
+//                     'code': '300',
+//                     'content': 'Error get Record',
+//                     'dataRow': rows
+//                 };
+//                 res.status(300).json(Status)
+//             } else {
+//                 if (rows.length > 0) {
+//                     var Status = {
+//                         'code': '200',
+//                         'content': 'Records Exist',
+//                         'dataRow': rows
+//                     };
+//                     res.status(200).json(Status)
+//                 } else {
+//                     var Status = {
+//                         'code': '300',
+//                         'content': 'Records Empty'
+//                     };
+//                     res.status(300).json(Status)
+//                 }
+//             }
+//         });
+// }

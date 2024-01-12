@@ -627,7 +627,7 @@ exports.AddPengeluaran = async function (req, res) {
         con.query('INSERT INTO saab_expses(nama, keperluan, tanggal, jumlah, status, create_date, update_date) ' +
             'VALUES (?,?,?,?,?,?,?)',
             [req.body.nama, req.body.keperluan, moment(new Date()).format("yyyyMMDD"),
-            req.body.jumlah, req.body.status, moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
+            req.body.jumlah, 'O', moment(new Date()).format("yyyyMMDD"), moment(new Date()).format("yyyyMMDD")],
             function (error, rows, fields) {
                 if (error) {
                     console.log(error)

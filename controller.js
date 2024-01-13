@@ -97,8 +97,8 @@ exports.UpdateBebanKubik = async function (req, res) {
 
 exports.UpdatePassword = async function (req, res) {
     try {
-        con.query('UPDATE saab_bebankubik SET password = ? WHERE id=?',
-            [req.body.password, req.body.id],
+        con.query('UPDATE saab_login SET password = ? WHERE id=?',
+            [req.body.password, 0],
             function (error, rows, fields) {
                 if (error) {
                     var Status = {
@@ -126,6 +126,48 @@ exports.UpdatePassword = async function (req, res) {
     }
 
 }
+
+exports.CheckOdlPassword = async function (req, res) {
+    try {
+        con.query('SELECT * FROM saab_login WHERE password = ? WHERE id=?',
+            [req.body.password, 0],
+            function (error, rows, fields) {
+                if (error) {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Update Failed',
+                        'dataRow': error
+                    };
+                    res.status(300).json(Status)
+                } else {
+                    if (rows.length > 0) {
+                        var Status = {
+                            'code': '200',
+                            'content': 'Records Exist',
+                            'dataRow': rows
+                        };
+                        res.status(200).json(Status)
+                    } else {
+                        var Status = {
+                            'code': '300',
+                            'content': 'Records Empty'
+                        };
+                        res.status(300).json(Status)
+                    }
+                }
+            });
+    } catch (error) {
+        var Status = {
+            'code': '300',
+            'content': 'Update Failed',
+            'dataRow': error
+        };
+        res.status(300).json(Status)
+    }
+
+}
+
+
 
 
 // pelanggan
@@ -648,6 +690,39 @@ exports.PayTransaksi = async function (req, res) {
                     'dataRow': rows
                 };
                 res.status(200).json(Status)
+            }
+        });
+}
+
+exports.ReportTransaksiByNopel = async function (req, res) {
+
+    con.query("SELECT periode Periode, beban Beban, biayakubik Harga_Kubik, selisihmeter Jumlah " +
+    ", pembayaran Total, CASE WHEN lunas = 'Y' THEN 'Paid' ELSE 'Unpaid' END Lunas from saab_trx WHERE nopel=?;",
+        [req.body.nopel],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+                var Status = {
+                    'code': '300',
+                    'content': 'Error get Record',
+                    'dataRow': rows
+                };
+                res.status(300).json(Status)
+            } else {
+                if (rows.length > 0) {
+                    var Status = {
+                        'code': '200',
+                        'content': 'Records Exist',
+                        'dataRow': rows
+                    };
+                    res.status(200).json(Status)
+                } else {
+                    var Status = {
+                        'code': '300',
+                        'content': 'Records Empty'
+                    };
+                    res.status(300).json(Status)
+                }
             }
         });
 }

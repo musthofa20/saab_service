@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.route('/v1/BebanKubik').get(ctrl.BebanKubik);
     app.route('/v1/UpdateBebanKubik').post(ctrl.UpdateBebanKubik);
     app.route('/v1/UpdatePassword').post(ctrl.UpdatePassword);
+    app.route('/v1/CheckOdlPassword').post(ctrl.CheckOdlPassword);
 
     // pelanggan
     app.route('/v1/AddPelanggan').post(ctrl.AddPelanggan);
@@ -24,6 +25,7 @@ module.exports = function (app) {
     app.route('/v1/getTransaksiPrint').post(ctrl.getTransaksiPrint);
     app.route('/v1/UpdateTransaksi').post(ctrl.UpdateTransaksi);
     app.route('/v1/PayTransaksi').post(ctrl.PayTransaksi);
+    app.route('/v1/ReportTransaksiByNopel').post(ctrl.ReportTransaksiByNopel);
 
     // LAPORAN
     app.route('/v1/AddPengeluaran').post(ctrl.AddPengeluaran);
